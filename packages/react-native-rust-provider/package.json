@@ -1,0 +1,18 @@
+{
+  "name": "react-native-rust-provider",
+  "version": "0.0.0",
+  "description": "Rust provider",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "cd cpp/rustbridge/ && sh build.sh"
+
+  },
+  "codegenConfig": {
+    "name": "RNRustProviderSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  },
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme"
+}
