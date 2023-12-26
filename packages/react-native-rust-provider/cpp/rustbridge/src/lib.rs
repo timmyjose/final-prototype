@@ -3,15 +3,12 @@ use std::ffi::{c_char, CStr, CString};
 
 #[derive(Deserialize)]
 pub enum Command {
-    Add { x: f64, y: f64 },
-    Sub { x: f64, y: f64 },
-    Mul { x: f64, y: f64 },
-    Div { x: f64, y: f64 }
+    Concat { s1: String, s2: String },
 }
 
 #[derive(Serialize)]
-pub struct CalcResult {
-    pub res: f64,
+pub struct CommandResult {
+    pub res: String,
     pub operation: String,
 }
 
@@ -34,24 +31,11 @@ pub extern "C" fn rust_execute(raw_cmd: *const c_char) -> *const c_char {
     }
 }
 
-fn execute_cmd(cmd: Command) -> Result<CalcResult, Box<dyn std::error::Error>> {
+fn execute_cmd(cmd: Command) -> Result<CommandResult, Box<dyn std::error::Error>> {
     Ok(match cmd {
-        Command::Add { x, y } => CalcResult {
-            res: x + y,
-            operation: "addition".into(),
-        },
-
-        Command::Sub { x, y } => CalcResult {
-            res: x - y,
-            operation: "subtraction".into(),
-        },
-        Command::Mul { x, y } => CalcResult {
-            res: x * y,
-            operation: "multiplication".into(),
-        },
-        Command::Div { x, y } => CalcResult {
-            res: if y == 0.0 { 0.0 } else { x / y },
-            operation: "division".into(),
+        Command::Concat { s1, s2 } => CommandResult {
+            res: s1 + &s2,
+            operation: "concatenation".into(),
         },
     })
 }

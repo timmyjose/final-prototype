@@ -4,80 +4,40 @@ import { View, TextInput, Button, Text, StyleSheet, StatusBar } from 'react-nati
 import { execute } from 'react-native-rust-provider'
 
 const App = () => {
- const [x, setX] = useState(0)
- const [y, setY] = useState(0)
- const [result, setResult] = useState(0)
+ const [s1, setS1] = useState('')
+ const [s2, setS2] = useState('')
+ const [result, setResult] = useState('')
 
- const handleAdd = () => {
-   const add_cmd = JSON.stringify({
-     Add: {
-       x: x,
-       y: y,
+ const handleConcat = () => {
+   const concat_cmd = JSON.stringify({
+     Concat: {
+      s1,
+      s2
      }
    })
 
-   const sum = JSON.parse(execute(add_cmd))
-   setResult(sum.res)
- }
-
- const handleSub = () => {
-   const sub_cmd = JSON.stringify({
-     Sub: {
-       x: x,
-       y: y
-     }
-   })
-   const diff = JSON.parse(execute(sub_cmd))
-   setResult(diff.res)
- }
-
- const handleMul = () => {
-   const mul_cmd = JSON.stringify({
-     Mul: {
-       x: x,
-       y: y
-     }
-   })
-
-   const prod = JSON.parse(execute(mul_cmd))
-   setResult(prod.res)
- }
-
- const handleDiv = () => {
-   const div_cmd = JSON.stringify({
-     Div: {
-       x: x,
-       y: y
-     }
-   })
-
-   const quot = JSON.parse(execute(div_cmd))
-   setResult(quot.res)
+   const concatenated = JSON.parse(execute(concat_cmd))
+   setResult(concatenated.res)
  }
 
  return (
    <View style={styles.container}>
      <TextInput
        style={styles.input}
-       placeholder="Enter number 1"
-       keyboardType="numeric"
-       value={x.toString()}
-       onChangeText={(text: string) => setX(parseFloat(text))}
+       placeholder="Enter first string"
+       value={s1}
+       onChangeText={(text: string) => setS1(text)}
      />
 
      <TextInput
        style={styles.input}
-       placeholder="Enter number 2"
-       keyboardType="numeric"
-       value={y.toString()}
-       onChangeText={(text: string) => setY(parseFloat(text))}
+       placeholder="Enter second string"
+       value={s2}
+       onChangeText={(text: string) => setS2(text)}
      />
 
      <View style={styles.buttonContainer}>
-       <Button title="Add" onPress={handleAdd} />
-       <Button title="Subtract" onPress={handleSub} />
-       <Button title="Multiply" onPress={handleMul} />
-       <Button title="Divide" onPress={handleDiv} />
+       <Button title="Concatenate" onPress={handleConcat} />
        </View>
 
      <Text style={styles.resultText}>Result: {result}</Text>
