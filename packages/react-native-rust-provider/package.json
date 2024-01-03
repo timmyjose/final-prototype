@@ -4,8 +4,8 @@
   "description": "Rust provider",
   "main": "src/index.tsx",
   "scripts": {
-    "build": "cd cpp/rustbridge/ && sh build.sh"
-
+    "clean": "rimraf android/.cxx && rimraf android/build",
+    "build": "cd cpp/rustbridge/ && sh install-prerequisites.sh && sh build.sh"
   },
   "codegenConfig": {
     "name": "RNRustProviderSpec",
@@ -14,5 +14,8 @@
   },
   "author": " <> ()",
   "license": "UNLICENSED",
-  "homepage": "#readme"
+  "homepage": "#readme",
+  "dependencies": {
+    "rimraf": "^5.0.5"
+  }
 }

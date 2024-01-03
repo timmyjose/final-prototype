@@ -4,6 +4,7 @@ use std::ffi::{c_char, CStr, CString};
 #[derive(Deserialize)]
 pub enum Command {
     Concat { s1: String, s2: String },
+    ReverseConcat { s1: String, s2: String },
 }
 
 #[derive(Serialize)]
@@ -36,6 +37,11 @@ fn execute_cmd(cmd: Command) -> Result<CommandResult, Box<dyn std::error::Error>
         Command::Concat { s1, s2 } => CommandResult {
             res: s1 + &s2,
             operation: "concatenation".into(),
+        },
+
+        Command::ReverseConcat { s1, s2 } => CommandResult {
+            res: s2 + &s1,
+            operation: "reverse concatenation".into(),
         },
     })
 }
