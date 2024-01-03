@@ -20,6 +20,19 @@ const App = () => {
    setResult(concatenated.res)
  }
 
+ const handleReverseConcat = () => {
+   const rev_concat_cmd = JSON.stringify({
+     ReverseConcat: {
+      s1,
+      s2
+     }
+   })
+
+   const reverse_concatenated = JSON.parse(execute(rev_concat_cmd))
+   console.log("reverse_concatenated = ", reverse_concatenated)
+   setResult(reverse_concatenated.res)
+ }
+
  return (
    <View style={styles.container}>
      <TextInput
@@ -37,7 +50,7 @@ const App = () => {
      />
 
      <View style={styles.buttonContainer}>
-       <Button title="Concatenate" onPress={handleConcat} />
+       <Button title="Reverse Concatenate" onPress={handleReverseConcat} />
        </View>
 
      <Text style={styles.resultText}>Result: {result}</Text>
